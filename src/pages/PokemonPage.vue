@@ -11,6 +11,7 @@ import PokemonPictureVue from '@/components/PokemonPicture.vue'
 import PokemonOptionsVue from '@/components/PokemonOptions.vue'
 
 import getPokemonOptions from '@/helpers/getPokemonOptions'
+//console.log(getPokemonOptions());
 
 export default {
   components: { PokemonPictureVue, PokemonOptionsVue }
