@@ -1,4 +1,4 @@
-# 05-pokemon-game
+# Pokemon Game APP
 
 ## Project setup
 ```
@@ -19,6 +19,9 @@ npm run build
 ```
 npm run test:unit
 ```
-
+### Desarrollado por
+```
+Samir Vergara V - Curso de Vue [Fernando Herrera]
+```
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
