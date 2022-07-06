@@ -1,17 +1,19 @@
 <template>
-  <div>
-    <h1 v-if="!pokemon">Espere por favor...</h1>
-    <div v-else>
-      <h1>¿Quién es este pokémon?</h1>
-      <PokemonPictureVue :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
-      <PokemonOptionsVue :pokemons="pokemonArr" @selectionPokemon="checkAnswer"/>    
+  <div class="card">
+    <div class="container">
+      <h1 v-if="!pokemon">Espere por favor...</h1>
+      <div v-else>
+        <h1>¿Quién es este pokémon?</h1>
+        <PokemonPictureVue :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
+        <PokemonOptionsVue :pokemons="pokemonArr" @selectionPokemon="checkAnswer"/>    
 
-      <template v-if="showAnswer">
-        <h2 v-if="verify" class="fade-in resp-tru">{{ message }}</h2>
-        <h2 v-else class="fade-in resp-false">{{ message }}</h2>
-        <button @click="newGame" class="btn-newGame">Nuevo Juego</button>
-      </template>
-      <h3>Desarrollado por Samir V2.</h3>
+        <template v-if="showAnswer">
+          <h2 v-if="verify" class="fade-in resp-tru">{{ message }}</h2>
+          <h2 v-else class="fade-in resp-false">{{ message }}</h2>
+          <button @click="newGame" class="btn-newGame">Nuevo Juego</button>
+        </template>
+        <h3>Desarrollado por Samir V2 del Curso de Vue.js de <a href="https://fernando-herrera.com/#/" target="_blank">Fernando Herrera</a>.</h3>
+      </div>
     </div>
   </div>
 </template>
@@ -87,5 +89,36 @@ export default {
 .resp-false{
   color:#e91644;
   text-align: center;
+}
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 60%;
+  border-radius: 15px; 
+  text-align: center;
+  width: 75vw;
+  margin-left: 12vw;
+}
+
+a:link {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 4px 16px;
 }
 </style>
