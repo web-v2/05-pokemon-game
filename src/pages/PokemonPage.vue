@@ -6,10 +6,10 @@
         <h1>¿Quién es este pokémon?</h1>
         <PokemonPictureVue :pokemonId="pokemon.id" :showPokemon="showPokemon"/>
         <PokemonOptionsVue :pokemons="pokemonArr" @selectionPokemon="checkAnswer"/>    
-
+        <p>Acertados: <strong>{{ganados}}</strong> Errados: <strong>{{perdidos}}</strong></p>
         <template v-if="showAnswer">
-          <h2 v-if="verify" class="fade-in resp-tru">{{ message }}</h2>
-          <h2 v-else class="fade-in resp-false">{{ message }}</h2>
+          <h2 v-if="verify" class="fade-in resp-tru">{{resultado}}{{ message }}</h2>
+          <h2 v-else class="fade-in resp-false">{{resultado}}{{ message }}</h2>
           <button @click="newGame" class="btn-newGame">Nuevo Juego</button>
         </template>
         <h3>Desarrollado por Samir V2 del Curso de Vue.js de <a href="https://fernando-herrera.com/#/" target="_blank">Fernando Herrera</a>.</h3>
@@ -33,7 +33,10 @@ export default {
         showPokemon:  false,
         showAnswer:   false,
         message:      '',
-        verify:       false
+        resultado:    '',
+        verify:       false,
+        ganados:      0,
+        perdidos:     0
     }
   },
   methods: { 
@@ -41,19 +44,40 @@ export default {
       this.pokemonArr = await getPokemonOptions(); 
       const rndInt = Math.floor(Math.random() * 4);
       this.pokemon = this.pokemonArr[rndInt];
-    }, 
+    },
+    verificarPutuacion (){
+      if(this.perdidos >= 5){
+        this.perdidos = 0
+        this.ganados  = 0
+      } 
+      if(this.ganados >= 5){
+        this.ganados  = 0
+        this.perdidos = 0
+      }
+    },
     checkAnswer(id){
       this.showPokemon = true;
       this.showAnswer = true;
 
       if(id === this.pokemon.id){
         this.verify = true
-        this.message = `Correcto, es ${this.pokemon.name}`
+        this.ganados++;
+        this.message = ` Correcto, es ${this.pokemon.name}`
+        if(this.ganados == 5){
+          this.resultado = `***Ganastes*** -`
+        }else{
+          this.resultado = ''
+        }
       }else{
         this.verify = false
-        this.message = `Oops, era ${this.pokemon.name}`
+        this.perdidos++;
+        this.message = ` Oops, era ${this.pokemon.name}`
+        if(this.perdidos == 5){
+          this.resultado = `Perdistes, reiniciar juego! -`
+        }else{
+          this.resultado = ''
+        }  
       }
-
     },
     newGame(){
       this.showPokemon  = false
@@ -61,10 +85,11 @@ export default {
       this.pokemonArr   = []
       this.pokemon      = null
       this.mixPokemonsArray()
+      this.verificarPutuacion()
     }
   },
   mounted(){
-    this.mixPokemonsArray()
+    this.mixPokemonsArray()    
   }
 }
 </script>
